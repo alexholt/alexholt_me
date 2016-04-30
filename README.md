@@ -1,3 +1,3 @@
-# Settle #
+# Settled #
 
 *Build and prosper!*
