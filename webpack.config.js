@@ -14,7 +14,7 @@ const config = {
   module: {
     loaders: [{
       test: /\.jsx$/,
-      loader: 'react-hot!babel!eslint',
+      loader: 'babel',
       include: path.resolve('./src')
     }, {
       test: /\.js$/,
