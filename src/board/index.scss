@@ -1,4 +1,39 @@
 .board {
   width: 100%;
   height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    width: 100%;
+    margin: auto;
+  }
+
+  .tile {
+  
+    &.scale-appear {
+      transform: scale(0.01);
+      opacity: 0;
+    }
+
+    &.scale-enter {
+      transform: scale(0.01);
+      opacity: 0;
+    }
+
+    &.scale-appear.scale-appear-active {
+      transform: scale(1);
+      opacity: 1;
+      transition: transform 0.5s ease-in;
+      transition: opacity 0.1s ease-in;
+    }
+
+    &.scale-enter.scale-enter-active {
+      transform: scale(1);
+      opacity: 1;
+      transition: 0.5s ease-in;
+    }
+
+  }
 }
