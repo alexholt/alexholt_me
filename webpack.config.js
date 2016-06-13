@@ -1,4 +1,5 @@
 const autoprefixer = require('autoprefixer');
+const sassImporter = require("node-sass-importer");
 const path = require('path');
 const precss = require('precss');
 const Webpack = require('webpack');
@@ -54,7 +55,10 @@ const config = {
   },
   postcss: function () {
     return [precss, autoprefixer];
-  }
+  },
+  sassConfig: {
+    importer: sassImporter, 
+  },
 };
 
 if (process.env.NODE_ENV !== 'production') {
