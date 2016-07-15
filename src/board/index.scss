@@ -1,9 +1,18 @@
+@import 'src/index.scss';
+
 .board {
   width: 100%;
   height: 100%;
   position: absolute;
   display: flex;
   flex-direction: column;
+  color: $WHAT;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
   .row {
     width: 100%;

@@ -1,17 +1,17 @@
 import _ from 'lodash';
 import Controls from '../controls';
 import React from 'react';
-let ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Tile from '../tile';
 
 require('./index.scss');
 
 const TILES = [
-  'field',
-  'mountain',
   'desert',
-  'pasture',
+  'field',
   'forest',
+  'mountain',
+  'pasture',
   'quarry',
 ];
 
@@ -109,6 +109,7 @@ export default class Board extends React.Component {
 
     return (
       <div className='board'>
+        <Controls onCreatePress={this.createNewBoard.bind(this)} />
 
         <ReactCSSTransitionGroup
           transitionName='scale'
@@ -121,7 +122,6 @@ export default class Board extends React.Component {
           {tiles}
 
         </ReactCSSTransitionGroup>
-        <Controls onCreatePress={this.createNewBoard.bind(this)} />
       </div>
     );
   }

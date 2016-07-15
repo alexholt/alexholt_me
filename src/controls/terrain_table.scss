@@ -1,0 +1,28 @@
+@import 'src/colors.scss';
+
+.terrain-table {
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    padding-right: 1em;
+    color: $MAIN_BORDER_COLOR;
+    font-family: monospace;
+
+    &.small {
+      color: black;
+      font-size: 0.8em;
+      padding: 0.4em;
+    }
+  }
+
+  .row {
+    padding-top: 1em;
+    display: flex;
+    justify-content: space-between;
+
+    .suboption {
+      border: 1px solid $MAIN_BORDER_COLOR;
+    }
+  }
+}

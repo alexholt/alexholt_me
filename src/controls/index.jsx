@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TerrainTable from './terrain_table';
+
 require('./index.scss');
 
 export default class Controls extends React.Component {
@@ -8,6 +10,7 @@ export default class Controls extends React.Component {
     return (
       <div className='controls'>
         <button onClick={this.props.onCreatePress}>New Board</button> 
+        <TerrainTable />
       </div>
     );
   }

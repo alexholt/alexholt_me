@@ -6,7 +6,7 @@ const Webpack = require('webpack');
 
 const config = {
   entry: {
-    'app': './src/index.js',
+    'app': './src/index.jsx',
   },
   output: {
     path: __dirname + '/public',
@@ -23,7 +23,7 @@ const config = {
       include: path.resolve('./src')
     }, {
       test: /\.scss$/,
-      loader: 'style!css!postcss!sass'
+      loader: 'style?singleton!css!postcss!sass'
     }, {
       test: /\.css$/,
       loader: 'style!css?sourceMap'

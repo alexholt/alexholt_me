@@ -1,3 +1,24 @@
+@import 'src/colors.scss';
+
 .controls {
-  display: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  border: 2px dashed $MAIN_BORDER_COLOR;
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 210px;
+  padding: 10px;
+  margin: 2px;
+  font-family: monospace;
+
+  button {
+    background-color: $MAIN_BORDER_COLOR;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:active {
+      background-color: green;
+    }
+  }
 }

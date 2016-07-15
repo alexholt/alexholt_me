@@ -1,0 +1,40 @@
+$ICE: #18e8ff;
+
+body {
+  overflow: hidden;
+}
+
+.magic-circle {
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 40px;
+    z-index: -1;
+  }
+  
+  label {
+    color: white;
+    font-family: monospace;
+  }
+
+  .info {
+    width: 32px;
+    bottom: 0;
+    position: fixed;
+    cursor: pointer;
+
+    &:hover {
+      path {
+        fill: $ICE;
+        stroke: $ICE;
+      }
+    }
+
+    path {
+      fill: white;
+      stroke: white;
+    }
+  }
+}
