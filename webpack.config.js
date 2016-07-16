@@ -31,6 +31,9 @@ const config = {
       test: /\.(ico|png|jpg|gif)$/,
       loader: 'url?name=images/img-[hash:6].[ext]'
     }, {
+      test: /\.md$/,
+      loader: 'html!markdown'
+    }, {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?mimetype=application/font-woff'
     }, {
@@ -65,7 +68,7 @@ if (process.env.NODE_ENV !== 'production') {
   const port = process.env.PORT || 8080;
   
   config.devServer = {
-    contentBase: './public',
+    contentBase: __dirname + '/public',
     host: 'localhost',
     port,
     publicPath: '/',
@@ -83,7 +86,7 @@ if (process.env.NODE_ENV !== 'production') {
   const devServer = `webpack-dev-server/client?http://localhost:${port}`;
   config.entry['dev-server-client'] = devServer;
   
-  config.plugins = [ new Webpack.HotModuleReplacementPlugin()];
+  config.plugins = [ new Webpack.HotModuleReplacementPlugin() ];
   
   config.devtool = 'source-map';
   config.debug = true;

@@ -1,5 +1,5 @@
 const CIRCLE_BORDER = 40;
-const MAX = 100;
+const MAX = 1000;
 
 let multiplier = 2;
 let needsRender = true;
@@ -82,15 +82,14 @@ export function startUpCircle() {
     context.height = height;
     context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
-    context.lineWidth = 1;
     context.strokeStyle = 'white';
     context.beginPath();
     context.arc(centerX, centerY, circleRadius, 0, 2 * Math.PI);
     context.stroke();
     
-    let blue = 0;
+    let blue = 10;
     let red = 255;
-    let green = 0;
+    let green = 10;
     for (let currentNumber = numbers - 2 < 0 ? 0 : numbers - 2;
          currentNumber <= numbers; currentNumber++ ) {
       blue = currentNumber / numbers * 255;

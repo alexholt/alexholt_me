@@ -13,12 +13,14 @@
   "dependencies": {
     "chai": "^3.5.0",
     "express": "^4.13.4",
+    "html-loader": "^0.4.3",
     "lodash": "^4.13.1",
+    "markdown-loader": "^0.1.7",
     "mocha": "^2.4.5",
     "normalize.css": "^4.1.1",
+    "rc-color-picker": "^1.0.1",
     "rc-slider": "^3.7.4",
-    "three": "^0.76.1",
-    "webpack": "^1.13.0"
+    "three": "^0.76.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",

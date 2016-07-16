@@ -7,7 +7,6 @@ import {
 } from './canvas';
 
 import { isNil } from 'lodash';
-import ColorPicker from 'rc-color-picker';
 import Overlay from '../overlay';
 import React from 'react';
 import Slider from 'rc-slider';
@@ -20,9 +19,11 @@ export default class MagicCircle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      min: 1,
-      max: 1000,
-      isOverlayShown: false,
+      minDivision: 1,
+      maxDivision: 100,
+      minMultiplier: 1,
+      maxMultiplier: 49,
+      isInfoOpen: false,
     };
   }
 
@@ -36,6 +37,12 @@ export default class MagicCircle extends React.Component {
       setDivisor(divisor);
       setMultiplier(multiplier);
     }
+  }
+
+  openInfo() {
+    this.setState({
+      isInfoOpen: !this.state.isInfoOpen,
+    });
   }
 
   onDivisorChange(value) {
@@ -91,14 +98,16 @@ export default class MagicCircle extends React.Component {
     return (
       <div className='magic-circle'>
 
-        <Overlay className='shown'>Hello!</Overlay>       
+        <Overlay isOpen={this.state.isInfoOpen}>
+          {require('./info.md')}
+        </Overlay>       
 
         <div className='slider-container top' style={style}>
           <Slider
             style={style}
             defaultValue={getDivisor()}
-            min={this.state.min}
-            max={this.state.max}
+            min={this.state.minDivision}
+            max={this.state.maxDivision}
             onChange={this.onDivisorChange.bind(this)} 
           />
           <label>Divisor</label>
@@ -108,8 +117,8 @@ export default class MagicCircle extends React.Component {
           <Slider
             style={style}
             defaultValue={getMultiplier()}
-            min={this.state.min}
-            max={this.state.max}
+            min={this.state.minMultiplier}
+            max={this.state.maxMultiplier}
             onChange={this.onMultiplierChange.bind(this)}
           />
           <label>Multiplier</label>
@@ -119,6 +128,7 @@ export default class MagicCircle extends React.Component {
         
         <div
           className='info'
+          onClick={this.openInfo.bind(this)}
           dangerouslySetInnerHTML={{
             __html: require('../../public/images/question.svg') 
           }}
