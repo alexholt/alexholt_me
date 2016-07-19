@@ -1,5 +1,5 @@
 const autoprefixer = require('autoprefixer');
-const sassImporter = require("node-sass-importer");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const precss = require('precss');
 const Webpack = require('webpack');
@@ -10,7 +10,7 @@ const config = {
   },
   output: {
     path: __dirname + '/public',
-    filename: '[name].js'
+    filename: '/[name].js?h=[hash]'
   },
   module: {
     loaders: [{
@@ -34,18 +34,6 @@ const config = {
       test: /\.md$/,
       loader: 'html!markdown'
     }, {
-      test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?mimetype=application/font-woff'
-    }, {
-      test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?mimetype=application/font-woff'
-    }, {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?mimetype=application/octet-stream'
-    }, {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file'
-    }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'svg-inline'
     }]
@@ -59,9 +47,14 @@ const config = {
   postcss: function () {
     return [precss, autoprefixer];
   },
-  sassConfig: {
-    importer: sassImporter, 
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve('./src/index.html'),
+      path: path.resolve('./public'),
+      filename: 'index.html',
+    }),
+    new Webpack.EnvironmentPlugin(['NODE_ENV']),
+  ],
 };
 
 if (process.env.NODE_ENV !== 'production') {

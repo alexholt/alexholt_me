@@ -19,9 +19,6 @@ export default class Landing extends React.Component {
         </div>
         <div className='link-container'>
           <div className='half-circle'></div>
-          <Link to='/settlers'>Settlers</Link>
-          <Link to='/three_things'>Three Things</Link>
-          <Link to='/settlers_canvas'>Settlers Canvas</Link>
           <Link to='/magic_circle'>Magic Circle</Link>
         </div>
       </div>

@@ -20,10 +20,10 @@ export default class MagicCircle extends React.Component {
     super(props);
     this.state = {
       minDivision: 1,
-      maxDivision: 100,
+      maxDivision: 2000,
       minMultiplier: 1,
-      maxMultiplier: 49,
-      isInfoOpen: false,
+      maxMultiplier: 1000,
+      isInfoOpen: /\/info$/.test(location.pathname),
     };
   }
 
@@ -40,8 +40,18 @@ export default class MagicCircle extends React.Component {
   }
 
   openInfo() {
+    window.history.replaceState({}, {}, '/magic_circle/info');
+    this.updateParams();
     this.setState({
-      isInfoOpen: !this.state.isInfoOpen,
+      isInfoOpen: true,
+    });
+  }
+
+  closeInfo() {
+    window.history.replaceState({}, {}, '/magic_circle');
+    this.updateParams();
+    this.setState({
+      isInfoOpen: false,
     });
   }
 
@@ -98,7 +108,10 @@ export default class MagicCircle extends React.Component {
     return (
       <div className='magic-circle'>
 
-        <Overlay isOpen={this.state.isInfoOpen}>
+        <Overlay
+          onClose={this.closeInfo.bind(this)}
+          isOpen={this.state.isInfoOpen}
+        >
           {require('./info.md')}
         </Overlay>       
 

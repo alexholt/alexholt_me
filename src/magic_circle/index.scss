@@ -1,10 +1,11 @@
 $ICE: #18e8ff;
 
-body {
-  overflow: hidden;
-}
-
 .magic-circle {
+
+  h1,
+  h2 {
+    font-family: monospace;
+  }
 
   canvas {
     width: 100%;
@@ -13,10 +14,16 @@ body {
     top: 40px;
     z-index: -1;
   }
-  
-  label {
+ 
+  a {
+    color: white;
+  }
+
+  label,
+  figcaption {
     color: white;
     font-family: monospace;
+    font-size: 10px;
   }
 
   .info {
@@ -37,4 +44,16 @@ body {
       stroke: white;
     }
   }
+
+  figure {
+    display: flex;
+
+    iframe {
+      width: 400px;
+      height: 380px;
+      margin: auto;
+      display: block;
+    }
+  }
+
 }

@@ -1,21 +1,15 @@
 # Magic Circle
+## 2016-07-17
 
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
+Here is a elegantly simple method for creating beautiful
+[epicycloids](https://en.wikipedia.org/wiki/Epicycloid) and other patterns
+I learned about from
+[Mathologer](https://www.youtube.com/channel/UC1_uAIS3r8Vu6JjXWvastJg).
 
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
-
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
-
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
-
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
-
-Utilizing the times table and a circle it's possible to create amazing shapes. We
-start with a circle and divide the circumference evenly.
-
-<iframe src="https://www.youtube.com/embed/qhbuKbxJsk8" frameborder="0" allowfullscreen></iframe>
+<figure>
+  <iframe
+    src="https://www.youtube.com/embed/qhbuKbxJsk8"
+    frameborder="0"
+  >
+  </iframe>
+</figure>

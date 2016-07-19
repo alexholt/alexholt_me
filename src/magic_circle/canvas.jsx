@@ -1,9 +1,10 @@
 const CIRCLE_BORDER = 40;
 const MAX = 1000;
+const ICE = '#18e8ff';
 
-let multiplier = 2;
 let needsRender = true;
-let numbers = 4;
+let multiplier = 858;
+let numbers = 600;
 
 export function setDivisor(value = 1) {
   numbers = value; 
@@ -87,27 +88,12 @@ export function startUpCircle() {
     context.arc(centerX, centerY, circleRadius, 0, 2 * Math.PI);
     context.stroke();
     
-    let blue = 10;
-    let red = 255;
-    let green = 10;
-    for (let currentNumber = numbers - 2 < 0 ? 0 : numbers - 2;
-         currentNumber <= numbers; currentNumber++ ) {
-      blue = currentNumber / numbers * 255;
-      red = 255 - currentNumber / numbers * 255;
-      
-      for (let currentMultiplier = multiplier - 3 < 0 ? 0 : multiplier - 3;
-           currentMultiplier <= multiplier; currentMultiplier++) {
-
-        context.strokeStyle =
-          `rgba(${red}, 230, ${blue}, ${currentNumber / numbers})`;
-        context.lineWidth = multiplier / currentMultiplier;
+    context.strokeStyle = ICE;
   
-        for (let i = 0; i <= MAX; i++) {
-          let startNum = i;
-          let endNum = (startNum * currentMultiplier) % currentNumber; 
-          connectNumbers(context, startNum, endNum, centerX, centerY, circleRadius);
-        }
-      }
+    for (let i = 0; i < numbers; i++) {
+      let startNum = i;
+      let endNum = (startNum * multiplier) % numbers; 
+      connectNumbers(context, startNum, endNum, centerX, centerY, circleRadius);
     }
     
     needsRender = false;

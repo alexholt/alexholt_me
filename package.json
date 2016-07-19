@@ -1,11 +1,12 @@
 {
-  "name": "settlers",
+  "name": "alexholt.me",
   "version": "1.0.0",
-  "description": "A game of resource management",
+  "description": "My home online",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --watch",
-    "start": "cp src/index.html public/ && webpack-dev-server --config webpack.config.js --colors --progress"
+    "start": "webpack-dev-server --config webpack.config.js --colors --progress",
+    "build": "NODE_ENV=production webpack --config webpack.config.js -p"
   },
   "repository": "github.com:alexholt/settlers",
   "author": "Alex",
@@ -14,6 +15,7 @@
     "chai": "^3.5.0",
     "express": "^4.13.4",
     "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.22.0",
     "lodash": "^4.13.1",
     "markdown-loader": "^0.1.7",
     "mocha": "^2.4.5",
