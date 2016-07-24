@@ -4,7 +4,7 @@
   "description": "My home online",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec --watch",
+    "test": "mocha --compilers js:babel-core/register --reporter spec --watch",
     "start": "webpack-dev-server --config webpack.config.js --colors --progress",
     "build": "NODE_ENV=production webpack --config webpack.config.js -p"
   },

@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 
-import Landing from './landing/index.jsx';
-import MagicCircle from './magic_circle/index.jsx';
+import Landing from './landing';
+import MagicCircle from './magic_circle';
+import RayTracer from './ray_tracer';
 
 require('./index.scss');
 require('normalize.css/normalize.css');
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Route path='/magic_circle' component={MagicCircle}>
       <Route path='info' component={MagicCircle} />
     </Route>
+    <Route path='/ray_tracer' component={RayTracer} />
   </Router>,
   document.querySelector('main')
 );
