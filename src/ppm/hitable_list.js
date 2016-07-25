@@ -18,6 +18,7 @@ export default class HitableList extends Hitable {
         hitRecord.t = tempRecord.t;
         hitRecord.p = tempRecord.p;
         hitRecord.normal = tempRecord.normal;
+        hitRecord.color = tempRecord.color;
       }
     }
     return hasHitAnything;

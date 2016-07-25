@@ -8,6 +8,7 @@ export default class Sphere extends Hitable {
     super();
     this.center = center;
     this.radius = radius;
+    this.color = new Vec3(Math.random(), Math.random(), Math.random());
   }
 
   hit(ray, tMin, tMax, hitRecord) {
@@ -36,6 +37,7 @@ export default class Sphere extends Hitable {
         hitRecord.t = temp;
         hitRecord.p = ray.getPointAtParameter(hitRecord.t);
         hitRecord.normal = hitRecord.p.subtract(this.center).divide(this.radius);
+        hitRecord.color = this.color;
         return true;
       }
       temp = (-b + Math.sqrt(discriminant)) / (2 * a);
@@ -43,6 +45,7 @@ export default class Sphere extends Hitable {
         hitRecord.t = temp;
         hitRecord.p = ray.getPointAtParameter(hitRecord.t);
         hitRecord.normal = hitRecord.p.subtract(this.center).divide(this.radius);
+        hitRecord.color = this.color;
         return true;
       }
     }

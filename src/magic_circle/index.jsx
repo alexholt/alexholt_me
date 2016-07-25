@@ -145,8 +145,7 @@ export default class MagicCircle extends React.Component {
           dangerouslySetInnerHTML={{
             __html: require('../../public/images/question.svg') 
           }}
-        >
-        </div>
+        />
       </div>
     );
   }

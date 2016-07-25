@@ -29,7 +29,7 @@ export default class PPM {
     return ppm;
   }
 
-  static createBlend(width = 200, height = 100) {
+  static createBlend(width = 800, height = 400) {
     const ppm = new PPM(width, height);
 
     const lowerLeftCorner = new Vec3(-2, -1, -1);
@@ -40,14 +40,19 @@ export default class PPM {
     let index = 0;
 
     const color = function(ray = new Ray(), world = new HitableList()) {
+      const lightSource = new Vec3(5, 10, 10); 
+      const ambientLight = 0.1;
+
       const hitRecord = {};
       if (world.hit(ray, 0, Number.MAX_VALUE, hitRecord)) {
-        return new Vec3(
-          hitRecord.normal.getX() + 1,
-          hitRecord.normal.getY() + 1,
-          hitRecord.normal.getZ() + 1
-        ).multiply(0.5);
+        const normal = hitRecord.normal.getUnit();
+        const lightVector = lightSource.subtract(hitRecord.p).getUnit(); 
+        let lightness = normal.dot(lightVector) + ambientLight;
+        lightness = Math.min(1, Math.max(0, lightness));
+        return hitRecord.color.multiply(lightness);
       }
+
+      // Background
       const unitDirection = ray.getDirection().getUnit();
       const t = 0.5 * (unitDirection.getY() + 1);
       return new Vec3(1, 1, 1)
@@ -57,20 +62,29 @@ export default class PPM {
 
     const world = new HitableList([
       new Sphere(new Vec3(0, 0, -1), 0.5),
-      new Sphere(new Vec3(0, -100.5, -1), 100)
+      new Sphere(new Vec3(0, -1e6 - 0.5, -1), 1e6)
     ]);
+
+    const sampleSize = 4;
 
     for (let j = height - 1; j >= 0; j--) {
       for (let i = 0; i < width; i++) {
-        const u = i / width;
-        const v = j / height;
-        const ray = new Ray(
-          origin,
-          lowerLeftCorner
-            .add(horizontal.multiply(u)).add(vertical.multiply(v)).getUnit()
-        );
+        let rgbVec = new Vec3(0, 0, 0);
 
-        const rgbVec = color(ray, world);
+        for (let s = 0; s < sampleSize; s++) {
+          const u = (i + Math.random()) / width;
+          const v = (j + Math.random()) / height;
+          const ray = new Ray(
+            origin,
+            lowerLeftCorner
+              .add(horizontal.multiply(u)).add(vertical.multiply(v)).getUnit()
+          );
+
+          rgbVec = rgbVec.add(color(ray, world));
+
+        }
+
+        rgbVec = rgbVec.divide(sampleSize);
         const [x, y] = ppm.indexToCoordinates(index++);
 
         ppm.setValue(
@@ -168,6 +182,9 @@ export default class PPM {
   }
 
   renderToCanvas(canvas) {
+    if (canvas == null) {
+      return;
+    }
     canvas.width = this.width;
     canvas.height = this.height;
     let context = canvas.getContext('2d');

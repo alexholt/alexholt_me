@@ -15,7 +15,9 @@ ReactDOM.render(
     <Route path='/magic_circle' component={MagicCircle}>
       <Route path='info' component={MagicCircle} />
     </Route>
-    <Route path='/ray_tracer' component={RayTracer} />
+    <Route path='/ray_tracer' component={RayTracer}>
+      <Route path='info' component={RayTracer} />
+    </Route>
   </Router>,
   document.querySelector('main')
 );

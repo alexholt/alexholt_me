@@ -1,9 +1,42 @@
+@import '../colors.scss';
+
 .ray-tracer {
   display: flex;
   height: 100%;
+  flex-direction: column;
+
+  a {
+    color: white;
+  }
 
   canvas {
     margin: auto;
     width: 95%;
   }
+
+  .timer {
+    color: white;
+    font-size: 24px;
+    float: right;
+  }
+
+  .info {
+    width: 32px;
+    bottom: 0;
+    position: fixed;
+    cursor: pointer;
+
+    &:hover {
+      path {
+        fill: $ICE;
+        stroke: $ICE;
+      }
+    }
+
+    path {
+      fill: white;
+      stroke: white;
+    }
+  }
+
 }

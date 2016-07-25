@@ -39,7 +39,7 @@ export default class Vec3 {
     return new Vec3(x, y, z);
   }
 
-  multiply(anotherVec = new Vec3()) {
+  multiply(anotherVec) {
     if (typeof anotherVec === 'number') {
       let value = anotherVec;
       return new Vec3( this.x * value, this.y * value, this.z * value);
@@ -50,7 +50,7 @@ export default class Vec3 {
     return new Vec3(x, y, z);
   }
   
-  divide(anotherVec = new Vec3()) {
+  divide(anotherVec) {
     if (typeof anotherVec === 'number') {
       let value = anotherVec;
       return new Vec3( this.x / value, this.y / value, this.z / value);
@@ -71,11 +71,12 @@ export default class Vec3 {
     return new Vec3(x, y, z);
   }
 
-  dot(anotherVec = new Vec3()) {
+  dot(anotherVec) {
     return (
       this.x * anotherVec.getX() +
       this.y * anotherVec.getY() +
       this.z * anotherVec.getZ()
     );
   }
+
 }
