@@ -5,9 +5,9 @@ const precss = require('precss');
 const Webpack = require('webpack');
 
 const config = {
-  entry: {
-    'app': './src/index.jsx',
-  },
+  entry: [
+    './src/index.jsx',
+  ],
   output: {
     path: __dirname + '/public',
     filename: '/[name].js?h=[hash]'
@@ -49,11 +49,19 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      inject: true,
       template: path.resolve('./src/index.html'),
       path: path.resolve('./public'),
       filename: 'index.html',
     }),
     new Webpack.EnvironmentPlugin(['NODE_ENV']),
+    new Webpack.DefinePlugin({
+      'process.env.NODE_ENV': (
+        process.env.NODE_ENV === 'production' ?
+        '"production"' :
+        '"development"'
+      )
+    }),
   ],
 };
 
@@ -69,17 +77,16 @@ if (process.env.NODE_ENV !== 'production') {
     historyApiFallback: true
   };
   
-  // Add the hot loader file to all the entry points
-  const entries = Object.keys(config.entry);
-  for (let i = 0; i < entries.length; i++) {
-    let entry = entries[i];
-    config.entry[entry] = [ config.entry[entry], 'webpack/hot/only-dev-server' ];
-  }
+  config.entry.push(
+    require.resolve('webpack-dev-server/client') +
+    `?http://localhost:${port}`
+  );
+
+  config.entry.push(
+    require.resolve('webpack/hot/dev-server')
+  );
   
-  const devServer = `webpack-dev-server/client?http://localhost:${port}`;
-  config.entry['dev-server-client'] = devServer;
-  
-  config.plugins = [ new Webpack.HotModuleReplacementPlugin() ];
+  config.plugins.concat(new Webpack.HotModuleReplacementPlugin());
   
   config.devtool = 'source-map';
   config.debug = true;
