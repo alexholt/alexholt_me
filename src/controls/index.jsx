@@ -9,8 +9,17 @@ export default class Controls extends React.Component {
   render() {
     return (
       <div className='controls'>
-        <button onClick={this.props.onCreatePress}>New Board</button> 
-        <TerrainTable />
+        <button onClick={
+          () => this.props.onCreatePress({
+            actionType: 'count-update'
+          })
+        }>
+          New Board
+        </button> 
+        <TerrainTable
+          {...this.props}
+          onUpdate={this.props.onUpdate}
+        />
       </div>
     );
   }

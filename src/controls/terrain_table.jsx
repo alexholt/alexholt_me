@@ -14,18 +14,44 @@ export default class TerrainTable extends React.Component {
   }
 
   createDropDown(terrain) {
-    let options = [];
-
-    for (let i = 0; i <= BOARD_SIZE; i++) {
-      options.push(
-        <option selected={this.props[terrain] === i} key={i}>{i}</option>
-      );
-    }
-
     return (
-      <select>
-        {options}
-      </select>
+      <span>
+        <div
+          className={
+            'left arrow' +
+            (this.props[terrain] === 0 ? ' disabled' : '')
+          }
+          dangerouslySetInnerHTML={{
+            __html: require('../../public/images/right-arrow.svg')
+          }}
+          onClick={() => {
+            this.props.onUpdate({
+              actionType: 'count-update',
+              count: this.props[terrain] - 1,
+              terrainType: terrain,
+            });
+          }}
+        />
+        <span className='terrain-name'>
+          {this.props[terrain] + ' tiles'}
+        </span>
+        <div
+          className={
+            'right arrow' +
+            (this.props.unassigned === 0 ? ' disabled' : '')
+          }
+          dangerouslySetInnerHTML={{
+            __html: require('../../public/images/right-arrow.svg')
+          }}
+          onClick={() => {
+            this.props.onUpdate({
+              actionType: 'count-update',
+              count: this.props[terrain] + 1,
+              terrainType: terrain,
+            });
+          }}
+        />
+      </span>
     );
   }
 
@@ -34,11 +60,14 @@ export default class TerrainTable extends React.Component {
       <div className='terrain-table'>
 
         <div className='row'>
+          <label>Unassigned</label>
+          <span className='terrain-name unassigned' >
+            {this.props.unassigned + ' tiles'}
+          </span>
+        </div>
+
+        <div className='row'>
           <label>Desert</label>
-          <div className='suboption'>
-            <label className='small'>Centered</label>
-            <input checked={this.state.isDesertCentered} type='checkbox' />
-          </div>
           { this.createDropDown('desert') }
         </div>
 
@@ -74,11 +103,12 @@ export default class TerrainTable extends React.Component {
 }
 
 TerrainTable.defaultProps = {
+  unassigned: 0,
   desert: 1,
   field: 4,
   forest: 4,
-  pasture: 4,
   mountain: 3,
+  pasture: 4,
   quarry: 3,
 };
 

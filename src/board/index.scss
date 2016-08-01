@@ -1,4 +1,4 @@
-@import 'src/index.scss';
+@import '../index.scss';
 
 .board {
   width: 100%;
@@ -6,7 +6,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  color: $WHAT;
+  color: $ICE;
 
   canvas {
     position: absolute;
@@ -45,4 +45,24 @@
     }
 
   }
+
+  .info {
+    width: 32px;
+    bottom: 0;
+    position: fixed;
+    cursor: pointer;
+
+    &:hover {
+      path {
+        fill: $ICE;
+        stroke: $ICE;
+      }
+    }
+
+    path {
+      fill: white;
+      stroke: white;
+    }
+  }
+
 }

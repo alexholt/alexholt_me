@@ -1,5 +1,9 @@
+import { addEventListener, dispatch, init } from './board_store';
 import Board from '../board';
+import BoardActions from './board_actions';
 import Controls from '../controls';
+import { debounce } from 'lodash';
+import Overlay from '../overlay';
 import React from 'react';
 
 export default class BoardCanvas extends Board {
@@ -9,31 +13,59 @@ export default class BoardCanvas extends Board {
     this.state.isRunning = false;
     this.state.width = document.documentElement.clientWidth;
     this.state.height = document.documentElement.clientHeight;
-    this.tiles = {};
+    this.state.counts = {};
+    this.state.isInfoOpen = /\/info$/.test(location.pathname);
+    this.tiles = null;
+    this.tileImages = {};
+    this.debouncedRender = debounce(this::this.renderCanvas, 100);
+  }
+
+  openInfo() {
+    window.history.replaceState({}, {}, '/catan_board/info');
+    this.setState({
+      isInfoOpen: true,
+    });
+  }
+
+  closeInfo() {
+    window.history.replaceState({}, {}, '/catan_board');
+    this.setState({
+      isInfoOpen: false,
+    });
   }
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Settlers';
+    window.addEventListener('resize', this.debouncedRender);
+    window.addEventListener(
+      'orientationchange', this.debouncedRender
+    );
   }
 
   initCanvas(canvas) {
     if (!canvas) {
       return;
     }
-    this.canvas = canvas;
-    this.context = this.canvas.getContext('2d');
+    if (!this.canvas) {
+      this.canvas = canvas;
+      this.context = this.canvas.getContext('2d');
+    }
+    if (this.state.isInfoOpen) {
+      return;
+    }
     this.context.clearRect(0, 0, this.state.width, this.state.height);
-    this.boardModel = this.createBoardModel();
-    this.renderCanvas();
+    this.debouncedRender();
   }
 
   getTile(tileName) {
-    if (this.tiles[tileName]) {
-      return this.tiles[tileName];
+    if (this.tileImages[tileName]) {
+      return this.tileImages[tileName];
     }
     const tile = document.createElement('img');
     tile.src = require(`../../public/images/tiles/${tileName}.png`);
-    this.tiles[tile] = tile;
+    tile.addEventListener('load', this.debouncedRender);
+    this.tileImages[tileName] = tile;
     return tile;
   }
 
@@ -52,15 +84,11 @@ export default class BoardCanvas extends Board {
     this.context.scale(ratio, ratio);
   }
 
-  renderCanvas() {
+  handleUpdate(update) {
+    dispatch(update);
+  }
 
-    this.state.width = document.documentElement.clientWidth;
-    this.state.height = document.documentElement.clientHeight;
-
-    this.scaleCanvas();
-
-    this.context.clearRect(0, 0, this.state.width, this.state.height);
-
+  buildTiles() {
     const width = Math.ceil(Math.min(this.state.width, this.state.height) / 6);
     const height = width * 3825 / 3300;
 
@@ -78,7 +106,7 @@ export default class BoardCanvas extends Board {
 
     let x = startingX;
 
-    const tiles = this.state.boardModel.map( (terrain, i) => {
+    return this.state.board.map( (terrain, i) => {
       let y = startingY;
       x += width;
 
@@ -112,13 +140,26 @@ export default class BoardCanvas extends Board {
         img: imgTile,
       };
     });
+  }
 
-    for (let tile of tiles) {
-      this.context.drawImage(tile.img, tile.x, tile.y, tile.width, tile.height);
+  renderCanvas() {
+    this.state.width = document.documentElement.clientWidth;
+    this.state.height = document.documentElement.clientHeight;
+
+    this.scaleCanvas();
+
+    this.context.clearRect(0, 0, this.state.width, this.state.height);
+
+    this.tiles = this.buildTiles();
+
+    for (let tile of this.tiles) {
+      this.context.drawImage(
+        tile.img, tile.x, tile.y, tile.width, tile.height
+      );
     }
 
     if (this.state.isRunning) {
-      window.requestAnimationFrame(this.renderCanvas.bind(this)); 
+      window.requestAnimationFrame(this::this.renderCanvas); 
     }
 
   }
@@ -126,11 +167,29 @@ export default class BoardCanvas extends Board {
   render() {
     return (
       <div className='board'>
-        <Controls onCreatePress={this.createNewBoard.bind(this)} />
+        <Overlay
+          onClose={this.closeInfo.bind(this)}
+          isOpen={this.state.isInfoOpen}
+        >
+          {require('./info.md')}
+        </Overlay>       
+
+        <Controls
+          onCreatePress={this::this.handleUpdate}
+          onUpdate={this::this.handleUpdate}
+          {...this.state.counts}
+        />
         <canvas
           width={this.state.width}
           height={this.state.height}
           ref={(canvas) => this.initCanvas(canvas) }
+        />
+        <div
+          className='info'
+          onClick={this.openInfo.bind(this)}
+          dangerouslySetInnerHTML={{
+            __html: require('../../public/images/question.svg') 
+          }}
         />
       </div>
     );
