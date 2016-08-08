@@ -4,6 +4,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import CatanBoard from './board_canvas';
 import Landing from './landing';
+import LowPoly from './low_poly';
 import MagicCircle from './magic_circle';
 import RayTracer from './ray_tracer';
 
@@ -22,6 +23,7 @@ ReactDOM.render(
     <Route path='/catan_board' component={CatanBoard}>
       <Route path='info' component={CatanBoard} />
     </Route>
+    <Route path='/low_poly' component={LowPoly} />  
   </Router>,
   document.querySelector('main')
 );
