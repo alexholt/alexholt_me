@@ -14,16 +14,16 @@ require('normalize.css/normalize.css');
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={Landing} />
-    <Route path='/magic_circle' component={MagicCircle}>
+    <Route path='/magic-circle' component={MagicCircle}>
       <Route path='info' component={MagicCircle} />
     </Route>
-    <Route path='/ray_tracer' component={RayTracer}>
+    <Route path='/ray-tracer' component={RayTracer}>
       <Route path='info' component={RayTracer} />
     </Route>
-    <Route path='/catan_board' component={CatanBoard}>
+    <Route path='/catan-board' component={CatanBoard}>
       <Route path='info' component={CatanBoard} />
     </Route>
-    <Route path='/low_poly' component={LowPoly} />  
+    <Route path='/low-poly' component={LowPoly} />  
   </Router>,
   document.querySelector('main')
 );
