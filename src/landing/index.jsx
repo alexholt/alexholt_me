@@ -23,6 +23,7 @@ export default class Landing extends React.Component {
           <Link to='/ray-tracer'>Ray Tracer</Link>
           <Link to='/catan-board'>Catan Board</Link>
           <Link to='/low-poly'>Low Poly</Link>
+          <Link to='/runaround'>Runaround</Link>
         </div>
       </div>
     );

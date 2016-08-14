@@ -24,7 +24,8 @@
     "normalize.css": "^4.1.1",
     "rc-color-picker": "^1.0.1",
     "rc-slider": "^3.7.4",
-    "three": "^0.76.1"
+    "three": "^0.79.0",
+    "three-objloader": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/loaders/OBJLoader.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",

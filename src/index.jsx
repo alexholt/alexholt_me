@@ -7,6 +7,7 @@ import Landing from './landing';
 import LowPoly from './low_poly';
 import MagicCircle from './magic_circle';
 import RayTracer from './ray_tracer';
+import Runaround from './runaround';
 
 require('./index.scss');
 require('normalize.css/normalize.css');
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path='info' component={CatanBoard} />
     </Route>
     <Route path='/low-poly' component={LowPoly} />  
+    <Route path='/runaround' component={Runaround} />  
   </Router>,
   document.querySelector('main')
 );
